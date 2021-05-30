@@ -1,0 +1,47 @@
+version: '3.3'
+
+services: 
+    db:
+        container_name: mysql
+        build: ./database
+        volumes: 
+            - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        ports:
+            - "3306:3306"
+        networks: 
+            - app
+        restart: on-failure        
+    
+    jupyter:
+        container_name: jupyter
+        build: ./jupyter-notebook
+        depends_on: 
+            - db
+        links: 
+            - 'db'
+        volumes: 
+            - ./jupyter-notebook:/jupyter-notebook
+        ports: 
+            - 8888:8888
+        networks: 
+            -app
+        restart: on-failure
+    
+        dash:
+            build: ./dash
+            container_name: dash
+            command: python dashapp.py
+            volumes:
+                - ./dash/app:/app
+            ports:
+                - '8050:8050'
+            depends_on: 
+                - db
+            links:
+                - "db"
+            restart: on-failure
+    
+networks:
+    app:
+        driver: bridge
+    
