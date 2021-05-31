@@ -23,18 +23,18 @@ services:
     ports: 
       - 8888:8888
 
-  #dash:
-  #  build: ./dash
-  #  depends_on: 
-  #    - db
-  #  container_name: dash
-  #  networks: 
-  #    - app
-  #  ports:
-  #    - 8050:8050
-  #  environment: 
-  #    - VIRTUAL_HOST=dash.arthoughts.local
-  #  restart: on-failure
+  dash:
+    build: ./dash
+    depends_on: 
+      - db
+    container_name: dash
+    networks: 
+      - app
+    ports:
+      - 8050:8050
+    environment: 
+      - VIRTUAL_HOST=dash.arthoughts.local
+    restart: on-failure
 
 networks: 
   app:
