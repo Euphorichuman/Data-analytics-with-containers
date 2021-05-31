@@ -1,11 +1,19 @@
 FROM python:3.6
 
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
+RUN pip install dash
+RUN pip install dash_table
+RUN pip install dash-renderer
+RUN pip install dash-core-components
+RUN pip install dash-html-components
+RUN pip install dash-table-experimentS
+RUN pip install plotly
+RUN pip install pandas
+RUN pip install sqlalchemy
+RUN pip install pymysql
 
 RUN mkdir /myworkdir
 WORKDIR /myworkdir
 COPY ./ ./
 
 EXPOSE 8050
-CMD ["python", "./app.py"]
+CMD ["python", "./app/app.py"]

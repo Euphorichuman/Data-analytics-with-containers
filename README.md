@@ -1,6 +1,6 @@
 # DATA ANALYTICS WITH CONTAINERS
 
-Container-based data analytics development solution.
+Container-based data analytics development solution: Visualizations of a database with a data source (The 100 richest people in the year 2019) using Jupyter notebook and Dash application.
 
 ### Built with
 

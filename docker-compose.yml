@@ -8,14 +8,14 @@ services:
     ports:
       - "3306:3306"
     networks: 
-      - app
+      - default
 
   jupyter:
     image: continuumio/anaconda3
     command: jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='' --NotebookApp.password=''
     container_name: jupyter
     networks: 
-      - app
+      - default
     depends_on: 
       - db
     volumes: 
@@ -29,13 +29,11 @@ services:
       - db
     container_name: dash
     networks: 
-      - app
+      - default
     ports:
       - 8050:8050
-    environment: 
-      - VIRTUAL_HOST=dash.arthoughts.local
     restart: on-failure
 
 networks: 
-  app:
+  default:
     driver: bridge
