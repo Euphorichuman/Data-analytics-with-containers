@@ -1,47 +1,41 @@
 version: '3.3'
 
-services: 
-    db:
-        container_name: mysql
-        build: ./database
-        volumes: 
-            - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-        ports:
-            - "3306:3306"
-        networks: 
-            - app
-        restart: on-failure        
-    
-    jupyter:
-        container_name: jupyter
-        build: ./jupyter-notebook
-        depends_on: 
-            - db
-        links: 
-            - 'db'
-        volumes: 
-            - ./jupyter-notebook:/jupyter-notebook
-        ports: 
-            - 8888:8888
-        networks: 
-            -app
-        restart: on-failure
-    
-        dash:
-            build: ./dash
-            container_name: dash
-            command: python dashapp.py
-            volumes:
-                - ./dash/app:/app
-            ports:
-                - '8050:8050'
-            depends_on: 
-                - db
-            links:
-                - "db"
-            restart: on-failure
-    
-networks:
-    app:
-        driver: bridge
-    
+services:
+  db:
+    image: mysql
+    build: ./database
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    networks: 
+      - app
+
+  jupyter:
+    image: continuumio/anaconda3
+    command: jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    container_name: jupyter
+    networks: 
+      - app
+    depends_on: 
+      - db
+    volumes: 
+      - ./jupyter-notebook:/jupyter-notebook
+    ports: 
+      - 8888:8888
+
+  #dash:
+  #  build: ./dash
+  #  depends_on: 
+  #    - db
+  #  container_name: dash
+  #  networks: 
+  #    - app
+  #  ports:
+  #    - 8050:8050
+  #  environment: 
+  #    - VIRTUAL_HOST=dash.arthoughts.local
+  #  restart: on-failure
+
+networks: 
+  app:
+    driver: bridge
