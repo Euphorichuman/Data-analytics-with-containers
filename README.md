@@ -58,7 +58,7 @@ Be sure to update the tests accordingly.
 ## Authors
 This container-based data analytics development solution was created by:
 
-- [Martin Fuentes](https://github.com/fuentesDeveloper)
+- [Martin Fuentes](https://github.com/Euphorichuman)
 - [Sergio Mancilla](https://github.com/sdmancilla)
 - Daniel Meza
 - Randy Romero
